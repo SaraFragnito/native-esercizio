@@ -1,12 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, Text, View } from 'react-native';
+import { Colors } from './utils/colors';
+
+import Games from "./screens/Games"
+import Quiz from "./screens/Quiz"
+import Chuck from "./screens/Chuck"
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <>
       <StatusBar style="auto" />
-    </View>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{
+          headerStyle: { backgroundColor: Colors.primary200 },
+          headerTintColor: Colors.gray700,
+          contentStyle: { backgroundColor: Colors.primary800 }
+        }}>
+          <Stack.Screen 
+            name="Games" 
+            component={Games} 
+            options={{ title: "Choose your Game!" }}
+          />
+          <Stack.Screen name="Quiz" component={Quiz} options={{title: "Quiz Game"}} />
+          <Stack.Screen name="Chuck" component={Chuck} options={{title: "Chuck Norris Quotes Generator"}} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 
