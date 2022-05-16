@@ -138,8 +138,10 @@ const styles = StyleSheet.create({
     color: "coral"
   },
   next: {
-    backgroundColor: Colors.primary400,
-    borderRadius: 5,
+    borderTopEndRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderColor: Colors.primary400,
+    borderWidth: 3,
     width: "100%",
     marginTop: 40,
     padding: 15,

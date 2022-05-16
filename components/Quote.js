@@ -13,9 +13,12 @@ export default Chuck
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginVertical: 30,
-    padding: 30
+    padding: 30,
+    borderTopEndRadius: 50,
+    borderBottomLeftRadius: 50,
+    borderColor: Colors.primary400,
+    borderWidth: 3
   },
   text: {
     color: Colors.primary50,
