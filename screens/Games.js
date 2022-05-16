@@ -5,6 +5,7 @@ import { Colors } from "../utils/colors"
 function Games({navigation}){
   const pressQuiz = () => navigation.navigate("Quiz")
   const pressChuck = () => navigation.navigate("Chuck")
+  const pressFormatter = () => navigation.navigate("Formatter")
 
   return (
     <View style={styles.container}>
@@ -18,8 +19,8 @@ function Games({navigation}){
           <Button onPress={pressChuck}>Chuck</Button>
         </View>
         <View style={styles.btn}>
-          <Text style={styles.text}>Boh, poi scopriremo cosa fargli fare</Text>
-          <Button>Other</Button>
+          <Text style={styles.text}>Format a text</Text>
+          <Button onPress={pressFormatter}>Formatter</Button>
         </View>
       </View>
     </View>
