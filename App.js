@@ -7,6 +7,7 @@ import { Colors } from './utils/colors';
 import Games from "./screens/Games"
 import Quiz from "./screens/Quiz"
 import Chuck from "./screens/Chuck"
+import AddImage from "./screens/AddImage"
 import Formatter from "./screens/Formatter"
 
 const Stack = createNativeStackNavigator()
@@ -28,6 +29,7 @@ export default function App() {
           />
           <Stack.Screen name="Quiz" component={Quiz} options={{title: "Quiz Game"}} />
           <Stack.Screen name="Chuck" component={Chuck} options={{title: "Chuck Norris Quotes Generator"}} />
+          <Stack.Screen name="AddImage" component={AddImage} options={{title: "Add an Image"}} />
           <Stack.Screen name="Formatter" component={Formatter} options={{title: "Text Formatter"}} />
         </Stack.Navigator>
       </NavigationContainer>

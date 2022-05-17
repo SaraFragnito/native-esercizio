@@ -5,6 +5,7 @@ import { Colors } from "../utils/colors"
 function Games({navigation}){
   const pressQuiz = () => navigation.navigate("Quiz")
   const pressChuck = () => navigation.navigate("Chuck")
+  const pressAddImage = () => navigation.navigate("AddImage")
   const pressFormatter = () => navigation.navigate("Formatter")
 
   return (
@@ -17,6 +18,10 @@ function Games({navigation}){
         <View style={styles.btn}>
           <Text style={styles.text}>Generate a random Chuck Norris quote</Text>
           <Button onPress={pressChuck}>Chuck</Button>
+        </View>
+        <View style={styles.btn}>
+          <Text style={styles.text}>Add an Image from your Camera</Text>
+          <Button onPress={pressAddImage}>Add Image</Button>
         </View>
         <View style={styles.btn}>
           <Text style={styles.text}>Format a text</Text>
