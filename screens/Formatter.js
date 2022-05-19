@@ -10,26 +10,15 @@ function Formatter(){
 
   const inputHandler = (enteredText) => setInputText(enteredText)
 
-  let size
-
-  const decreaseSize = () => {
-    size = fontSize - 4
-    setFontSize(size)
-  }
-
-  const increaseSize = () => {
-    size = fontSize + 4
-    setFontSize(size)
-  }
-
-  const blackFont = () => setFontColor("black")
-  const blueFont = () => setFontColor("blue")
+  const decreaseSize = () => setFontSize(fontSize-4)
+  const increaseSize = () => setFontSize(fontSize+4)
+  const blackText = () => setFontColor("black")
+  const blueText = () => setFontColor(Colors.primary400)
 
   const reset = () => {
     setFontSize(20)
     setFontColor("white")
   }
-    
 
   return (
     <View style={styles.container}>
@@ -42,12 +31,10 @@ function Formatter(){
       />
       </View>
       <View style={styles.optionsContainer}>
-        <Button onPress={decreaseSize}>Rimpicciolisci</Button>
-        <Button onPress={increaseSize}>Ingrandisci</Button>
-      </View>
-      <View style={styles.optionsContainer}>
-        <Button onPress={blackFont}>Testo nero</Button>
-        <Button onPress={blueFont}>Testo blu</Button>
+        <Button onPress={decreaseSize}>smaller</Button>
+        <Button onPress={increaseSize}>bigger</Button>
+        <Button onPress={blackText}>black</Button>
+        <Button onPress={blueText}>blue</Button>
       </View>
       <View style={styles.optionsContainer}>
         <Pressable style={({pressed}) => [styles.reset, pressed && styles.pressed]} onPress={reset}>
