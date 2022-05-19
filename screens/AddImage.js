@@ -17,7 +17,9 @@ function AddImage(){
 
     if (cameraPermissionInformation.status === PermissionStatus.DENIED){
       Alert.alert("Insufficient Permissions!", "You need to grant camera permissions to use this app.")
-      return false
+      //return false
+      const permissionResponse = await requestPermission()
+      return permissionResponse.granted
     }
 
     return true
@@ -33,7 +35,6 @@ function AddImage(){
       quality: 0.5
     })
     setPickedImage(image.uri)
-    //onTakeImage(image.uri)
   }
 
   let imagePreview = <Text>No image taken yet.</Text>
@@ -63,8 +64,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Colors.primary100,
-    borderRadius: 10,
-    overflow: "hidden"
+    overflow: "hidden",
+    borderTopEndRadius: 30,
+    borderBottomLeftRadius: 20,
+    borderColor: Colors.primary400,
   },
   image: {
     width: "100%",

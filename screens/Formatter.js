@@ -1,26 +1,62 @@
-import { StyleSheet, View, Text, TextInput } from "react-native"
+import { StyleSheet, View, Text, TextInput, Pressable } from "react-native"
+import { useState } from "react";
 import Button from "../components/Button"
 import { Colors } from "../utils/colors"
 
 function Formatter(){
+  const [inputText, setInputText] = useState("")
+  const [fontSize, setFontSize] = useState(20)
+  const [fontColor, setFontColor] = useState("white")
+
+  const inputHandler = (enteredText) => setInputText(enteredText)
+
+  let size
+
+  const decreaseSize = () => {
+    size = fontSize - 4
+    setFontSize(size)
+  }
+
+  const increaseSize = () => {
+    size = fontSize + 4
+    setFontSize(size)
+  }
+
+  const blackFont = () => setFontColor("black")
+  const blueFont = () => setFontColor("blue")
+
+  const reset = () => {
+    setFontSize(20)
+    setFontColor("white")
+  }
+    
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        Text Formatter
-      </Text>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput}>hhh</TextInput>
-        <Button>Boh</Button>
+      <TextInput 
+        style={styles.textInput} 
+        onChangeText={inputHandler} 
+        value={inputText}
+        placeholder="Your text here..."
+      />
       </View>
       <View style={styles.optionsContainer}>
-        <Button>abc</Button>
-        <Button>def</Button>
-        <Button>ghi</Button>
-        <Button>lmn</Button>
-        <Button>opq</Button>
+        <Button onPress={decreaseSize}>Rimpicciolisci</Button>
+        <Button onPress={increaseSize}>Ingrandisci</Button>
+      </View>
+      <View style={styles.optionsContainer}>
+        <Button onPress={blackFont}>Testo nero</Button>
+        <Button onPress={blueFont}>Testo blu</Button>
+      </View>
+      <View style={styles.optionsContainer}>
+        <Pressable style={({pressed}) => [styles.reset, pressed && styles.pressed]} onPress={reset}>
+          <Text style={styles.resetText}>Reset</Text>
+        </Pressable>
       </View>
       <View style={styles.printedText}>
-        <Text style={styles.text}>Prova prova check check bla bla bla</Text>
+        <Text style={styles.text}>Il tuo testo:</Text>
+        <Text style={[styles.text, {fontSize: fontSize, color: fontColor}]}>{inputText}</Text>
       </View>
     </View>
   )
@@ -42,24 +78,43 @@ const styles = StyleSheet.create({
     color: Colors.primary50
   },
   inputContainer: {
-    flexDirection: "row",
     marginVertical: 20
   },
   textInput: {
     backgroundColor: Colors.primary100,
-    width: "80%",
+    width: "100%",
     padding: 10,
+    borderWidth: 1,
+    borderRadius: 6,
   },
   optionsContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+    marginVertical: 10
   },
   printedText: {
-    marginTop: 70,
+    marginTop: 10,
     padding: 30,
-    borderTopEndRadius: 50,
-    borderBottomLeftRadius: 50,
+    borderTopEndRadius: 30,
+    borderBottomLeftRadius: 30,
     borderColor: Colors.primary400,
     borderWidth: 3,
+  },
+  reset: {
+    borderTopWidth: 2,
+    borderTopColor: Colors.primary100,
+    width: 100,
+    alignItems: "center",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginTop: 5
+  },
+  resetText: {
+    color: Colors.primary100,
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  pressed: {
+    opacity: 0.7
   },
 })

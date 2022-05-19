@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   btn: {
-    marginVertical: 40,
+    marginVertical: 30,
     justifyContent: "center",
   },
   text: {
