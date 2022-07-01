@@ -1,17 +1,22 @@
 import { View, StyleSheet } from "react-native"
 import { useState } from "react"
+import * as Clipboard from 'expo-clipboard';
+
 import Button from "../components/Button"
 import Quote from "../components/Quote"
 import LoadingOverlay from "../components/LoadingOverlay"
 import ErrorOverlay from "../components/ErrorOverlay"
 import { Colors } from "../utils/colors"
-import { getQuote } from "../utils/quotes"
-//prima pagina: clicca il bottone per ricevere una quote, bottone per caricare una quote, disabilitare bottone con loading, poi sotto compare citazione e il bottone si riabilita
+import { getQuote } from "../utils/fetched"
 
 function Chuck(){
   const [isFetching, setIsFetching] = useState(false)
   const [error, setError] = useState()
   const [fetchedQuote, setFetchedQuote] = useState()
+
+  const copyToClipboard = async () => {
+    await Clipboard.setStringAsync(fetchedQuote.value)
+    };
 
   async function fetchQuote(){
     setIsFetching(true)
@@ -33,12 +38,15 @@ function Chuck(){
   return (
     <View style={styles.container}>
       <Button onPress={fetchQuote}>Generate Quote!</Button>
-        { fetchedQuote &&  
-          <Quote
-            quoteId={fetchedQuote.id} 
-            quoteValue={fetchedQuote.value} 
-          /> 
-        }
+      { fetchedQuote && 
+      <View> 
+        <Quote
+          quoteId={fetchedQuote.id} 
+          quoteValue={fetchedQuote.value} 
+        /> 
+        <Button onPress={copyToClipboard}>Click to copy</Button>
+      </View>
+      }
     </View>
   )
 }

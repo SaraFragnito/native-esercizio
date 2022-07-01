@@ -4,6 +4,8 @@ import { Colors } from "../utils/colors"
 import { QUESTIONS } from "../utils/questions"
 import Button from "../components/Button"
 
+// cambiare colori dei bottoni quando la risposta è stata data
+
 function Quiz({route, navigation}){
   const [currentIndex, setCurrentIndex] = useState(0)
   const [currentSelectedAnswer, setCurrentSelectedAnswer] = useState()
@@ -40,7 +42,7 @@ function Quiz({route, navigation}){
     setIsAnswerDisabled(null)
   }
 
-  const goBack = () => navigation.navigate("Games")
+  const goBack = () => navigation.navigate("AppList")
 
   return (
     <View style={styles.container}>
@@ -55,30 +57,36 @@ function Quiz({route, navigation}){
       </Text>
       <View>
         { QUESTIONS[currentIndex].answers.map(answer => (
-          <Button 
+         <Pressable
             key={answer}
             disabled={isAnswerDisabled ? true : false}
             onPress={() => validateAnswer(answer)}
+            style={({pressed}) => [
+              styles.option, 
+              pressed && styles.pressed, 
+              {
+                backgroundColor: 
+                  answer == correctAnswer ? "darkgreen" : 
+                  answer == currentSelectedAnswer ? "darkred" : 
+                  isAnswerDisabled ? "slategrey" : 
+                  Colors.primary400
+              }
+            ]}
           > 
-            {answer}
-          </Button>
+            <Text style={styles.optionText}>{answer}</Text>
+          </Pressable>
         ))}
-
-        {currentSelectedAnswer ? currentSelectedAnswer == correctAnswer ? 
-          <Text style={[styles.text, styles.textOK]}>Risposta esatta!</Text> : 
-          <Text style={[styles.text, styles.textNO]}>Risposta sbagliata!</Text>
-         : null }
-
       </View>
 
       <View style={styles.next}>
         <Pressable 
           disabled={currentSelectedAnswer ? false : true} 
           onPress={handleNext}
+          style={({pressed}) => pressed && styles.pressed}
         >
         {currentSelectedAnswer ? 
           <Text style={styles.nextText}>Vai alla prossima domanda</Text> :
-          <Text style={styles.nextText}>Scegli una risposta!</Text> }
+          <Text style={[styles.nextText, {color: "slategrey"}]}>Scegli una risposta!</Text> }
         </Pressable>
       </View>
 
@@ -89,7 +97,7 @@ function Quiz({route, navigation}){
       >
         <View style={[styles.container, styles.finalContainer]}>
           <Text style={styles.finalText}>Punteggio finale:</Text>
-          <Text style={[styles.finalText, score > QUESTIONS.length/2 ? styles.textOK : styles.textNO ]}> {score}/{QUESTIONS.length}</Text>
+          <Text style={[styles.finalText, score > QUESTIONS.length/2 ? {color: "lightgreen"} : {color: "red"} ]}> {score}/{QUESTIONS.length}</Text>
           {score > QUESTIONS.length/2 ?
             <Text style={styles.finalText}>Hai vinto!</Text> :
             <Text style={styles.finalText}>Hai perso!</Text>
@@ -131,11 +139,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 20
   },
-  textOK: {
-    color: "lightgreen"
+  option: {
+    backgroundColor: Colors.primary400,
+    borderRadius: 5,
+    width: "100%",
+    marginTop: 10,
+    padding: 10,
   },
-  textNO: {
-    color: "coral"
+  optionText: {
+    textAlign: "center",
+    color: Colors.primary50,
+    fontSize: 20,
+    fontWeight: "bold"
   },
   next: {
     borderTopEndRadius: 15,
@@ -163,4 +178,7 @@ const styles = StyleSheet.create({
       paddingVertical: 30,
       color: Colors.primary50
     },
+  pressed: {
+    opacity: 0.7
+  },
 })
